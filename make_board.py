@@ -6,7 +6,7 @@ def board_to_string(vision: List[str]) -> str:
 
 
 def add_board(boards: List[str], board: str) -> List[dict]:
-  boards = boards
+  boards = deepcopy(boards)
   #print("  Checking if {} is in {}".format(board, boards))
   if in_boards(boards, board):
     print("  Duplicate board")
@@ -62,9 +62,9 @@ def create_apple_board(apples: List[dict]) -> str:
 def add_apple(apples: List[dict], x: int, y: int) -> List[dict]:
   print("Adding apple at {} x {}".format(x, y))
   #print(apples)
-  if x == 1 and y == 1:
-    print("Apple already eaten")
-    return apples
+  #if x == 1 and y == 1:
+  #  print("Apple already eaten")
+  #  return apples
   for apple in apples:
     if x == apple["x"] and y == apple["y"]:
       print("Duplicate apple")
@@ -82,33 +82,35 @@ def in_apples(apples: List[dict], x: int, y:int) -> bool:
   return match
 
 
-def recursive_apples(max_depth: int, depth: int, apples: List[dict]):
+def recursive_apples(max_depth: int, depth: int, boards: List[str] = [], apples: List[dict] = []):
   print("  At depth {} with {}".format(depth, apples))
-  local_boards = []
   if depth != max_depth:
     for x in range(0,3):
       for y in range(0,3):
         local_apples = deepcopy(apples)
-        if in_apples(local_apples, x, y):
+        if x == 1 and y == 1:
+          print("Skipping board with apple head")
+        elif in_apples(local_apples, x, y):
           print("Skipping duplicate apple")
         else:
           local_apples = add_apple(local_apples, x, y)
-          if in_boards(local_boards, create_apple_board(local_apples)):
+          if in_boards(boards, create_apple_board(local_apples)):
             print("  Skipping duplicate board tree")
           else:
             print("Entering depth {} with {}".format(depth+1, local_apples))
-            local_boards += recursive_apples(max_depth, depth+1, local_apples)
-            print("Returned to depth {}: {}".format(depth, local_boards))
+            #boards += recursive_apples(max_depth, depth+1, boards, local_apples)
+            boards = recursive_apples(max_depth, depth+1, boards, local_apples)
+            print("Returned to depth {}: {}".format(depth, boards))
   else:
-    local_boards = add_board(local_boards, create_apple_board(apples))
-    print("  Added leaf: {}".format(local_boards))
+    print("  Adding leaf: {}".format(boards))
+    boards = add_board(boards, create_apple_board(apples))
+    print("  Added leaf: {}".format(boards))
   #local_boards.append(create_apple_board(apples))
   #print("Local boards: {}".format(local_boards))
-  return(local_boards)
+  return(boards)
 
 if __name__ == "__main__":
-  apples = []
-  all_boards = recursive_apples(2,0, apples)
+  all_boards = recursive_apples(2, 0, [], [])
   print('--------------------------------')
   print("Generated {} boards:".format(len(all_boards)))
   print(all_boards)
