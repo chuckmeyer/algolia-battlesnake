@@ -101,16 +101,16 @@ def recursive_apples(max_depth: int, depth: int, boards: List[str] = [], apples:
             #boards += recursive_apples(max_depth, depth+1, boards, local_apples)
             boards = recursive_apples(max_depth, depth+1, boards, local_apples)
             print("Returned to depth {}: {}".format(depth, boards))
-  else:
-    print("  Adding leaf: {}".format(boards))
-    boards = add_board(boards, create_apple_board(apples))
-    print("  Added leaf: {}".format(boards))
+#  else:
+  print("  Adding leaf: {}".format(boards))
+  boards = add_board(boards, create_apple_board(apples))
+  print("  Added leaf: {}".format(boards))
   #local_boards.append(create_apple_board(apples))
   #print("Local boards: {}".format(local_boards))
   return(boards)
 
 if __name__ == "__main__":
-  all_boards = recursive_apples(2, 0, [], [])
+  all_boards = recursive_apples(8, 0, [], [])
   print('--------------------------------')
   print("Generated {} boards:".format(len(all_boards)))
   print(all_boards)
