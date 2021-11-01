@@ -3,3 +3,7 @@
 .cmd
 .idea
 .vscode
+.venv
+.env
+utilities/outputs
+pyvenv.cfg
