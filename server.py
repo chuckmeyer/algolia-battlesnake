@@ -6,7 +6,6 @@ from flask import request
 
 import server_logic
 
-
 app = Flask(__name__)
 
 
@@ -24,10 +23,10 @@ def handle_info():
     print("INFO")
     return {
         "apiversion": "1",
-        "author": "",  # TODO: Your Battlesnake Username
-        "color": "#888888",  # TODO: Personalize
-        "head": "default",  # TODO: Personalize
-        "tail": "default",  # TODO: Personalize
+        "author": "chuckmeyer",  # TODO: Your Battlesnake Username
+        "color": "#5468FF",  # TODO: Personalize
+        "head": "silly",  # TODO: Personalize
+        "tail": "bolt",  # TODO: Personalize
     }
 
 
