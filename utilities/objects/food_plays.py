@@ -19,19 +19,15 @@ def find_best_moves(board_size: int, board: str) -> List[str]:
 
             # left
             if x_diff < head:
-                print("{} left weight is 1 + {} + {}".format(loc, x_weight, y_weight))
                 preferred["left"] += 1 + x_weight + y_weight
             # right
             if x_diff > head:
-                print("{} right weight is 1 + {} + {}".format(loc, x_weight, y_weight))
                 preferred["right"] += 1 + x_weight + y_weight
             # down
             if y_diff < head:
-                print("{} down weight is 1 + {} + {}".format(loc, x_weight, y_weight))
                 preferred["down"] += 1 + x_weight + y_weight
             # up
             if y_diff > head:
-                print("{} up weight is 1 + {} + {}".format(loc, x_weight, y_weight))
                 preferred["up"] += 1 + x_weight + y_weight
 
     best_move_score = max(preferred, key=preferred.get)
@@ -46,11 +42,15 @@ def find_best_moves(board_size: int, board: str) -> List[str]:
 
 def create_play(board_size: int, board: str) -> dict:
     best_moves = find_best_moves(board_size, board)
+    if best_moves:
+        description = "food found {}".format(' '.join(best_moves)),
+    else:
+        description = "no food found"
     play = {
         "objectID": board,
         "board": board,
         "best_move": best_moves,
-        "description": "apple {}".format(' '.join(best_moves)),
+        "description": description,
         "remove_moves": []
     }
     return play
