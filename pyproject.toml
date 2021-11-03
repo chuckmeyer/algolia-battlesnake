@@ -8,3 +8,4 @@ authors = ["Battlesnake Developers <developers@battlesnake.com>"]
 python = "^3.8"
 Flask = "^2.0.1"
 algoliasearch = "^2.6.0"
+python-dotenv = "^0.19.1"
