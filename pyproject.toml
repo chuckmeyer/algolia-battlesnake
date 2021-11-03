@@ -1,10 +1,11 @@
 [tool.poetry]
-name = "starter-snake-python"
+name = "algolia-battlesnake"
 version = "1.0.0"
-description = "A simple Battlesnake written in Python"
-authors = ["Battlesnake Developers <developers@battlesnake.com>"]
+description = "A Battlesnake powered by Algolia Search"
+authors = ["Chuck Meyer <chuck.meyer@algolia.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
 Flask = "^2.0.1"
 algoliasearch = "^2.6.0"
+python-dotenv = "^0.19.1"
