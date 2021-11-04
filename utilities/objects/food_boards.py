@@ -1,6 +1,5 @@
 from typing import List, Set
 from copy import deepcopy
-import json
 
 
 def add_board(boards: Set[str], board: str) -> List[str]:
@@ -47,12 +46,6 @@ def create_board(board_size: int, apples: List[dict]) -> str:
                         space = "O"
             board += space
     return board
-
-
-def save_boards(boards: List[dict], filename: str):
-    # Write the records to a file
-    with open(filename, 'w') as outfile:
-        json.dump(boards, outfile, indent=2)
 
 
 def add_apple(apples: List[dict], x: int, y: int) -> List[dict]:
