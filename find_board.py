@@ -1,7 +1,10 @@
 from algoliasearch.search_client import SearchClient
 from typing import List
 
-client = SearchClient.create('3X7W8M7P92', 'd8205d3319b85f7c42a0ccd39f20d84b')
+ALGOLIA_APP_ID = environ.get('ALGOLIA_APP_ID')
+ALGOLIA_API_KEY = environ.get('ALGOLIA_API_KEY')
+
+client = SearchClient.create(ALGOLIA_APP_ID, ALGOLIA_API_KEY)
 
 
 def vision_to_string(vision: List[str]) -> str:

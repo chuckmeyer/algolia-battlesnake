@@ -1,5 +1,6 @@
 from typing import List
-
+import json
+import os
 
 def find_best_moves(board_size: int, board: str) -> List[str]:
     head = board_size//2
@@ -54,3 +55,11 @@ def create_play(board_size: int, board: str) -> dict:
         "remove_moves": []
     }
     return play
+
+
+def save_plays(plays: List[dict], filename: str):
+    # MAke sure outputs directory exists
+    os.makedirs('outputs', exist_ok=True)
+    # Write the records to a file
+    with open(filename, 'w') as outfile:
+        json.dump(plays, outfile, indent=2)
