@@ -1,14 +1,26 @@
-# Getting started with [Battlesnake](http://play.battlesnake.com?utm_source=github&utm_medium=readme&utm_campaign=python_starter&utm_content=homepage) and Python
+# A [Battlesnake](http://play.battlesnake.com?utm_source=github&utm_medium=readme&utm_campaign=python_starter&utm_content=homepage) powered by [Algolia Search](https://www.algolia.com/products/search-and-discovery/hosted-search-api/)
 
-![Battlesnake Logo](https://media.battlesnake.com/social/StarterSnakeGitHubRepos_Python.png)
+It's alive! :zap:
 
-This is a basic implementation of the [Battlesnake API](https://docs.battlesnake.com/references/api) in Python. It's a great starting point for anyone wanting to program their first Battlesnake using Python, and comes ready to deploy with [Replit](https://repl.it) and [Heroku](https://heroku.com), or you can use any other cloud provider you'd like. 
+![Searchy plays BattleSnake](static/battlesnake.gif)
+
+I played Mad Scientist and built a BattleSnake that hunts for food on the board using queries against an Algolia Search index. Her name is "Searchy". The API latency is perfectly fine and she's already won a few games.
+
+Searchy is built using the [Python Starter Snake](https://github.com/BattlesnakeOfficial/starter-snake-python) as a foundation. `utilities/make_food_plays.py` generates all the possible positions for food in a 5x5 matrix (about 16.7 million of them). It then weights the possible moves on each board based on food positions. Finally, it creates `JSON` records of all the boards and uses the Algolia Python client to import the records into an Algolia index.
+
+At game time, I do some quick collision evaluations in [`server_logic.py`](server_logic.py), then build a string representing a 5x5 field around her head. I use this string to query the Algolia index in [`find_boards.py`](find_board.py) to get the best moves from the list of possible boards. All the "smarts" are in the board generator, so I can work to constantly improve Searchy's vision.
+
+I have lots of ideas on where to take it next. I could do coarse grain and fine grain searches by doing averages across the whole board and finding the best move. I'd also like to layer the collision detection into the index records so everything is pulled via queries, but I'm trying to thoughtful about my number of records/queries.
+
+Obviously the whole thing is a little silly, but there could be some interesting things around faceting the index to pick strategies, or using geosearch instead of text search.
+
+I'm mostly impressed I can query the result from 16mil records in < 500ms
 
 ## Technologies Used
 
 * [Python3](https://www.python.org/)
 * [Flask](https://flask.palletsprojects.com/)
-
+* [Algolia Search](https://www.algolia.com/products/search-and-discovery/hosted-search-api/)
 
 ## Quickstart
 
@@ -17,6 +29,8 @@ The [Quick Start Coding Guide](https://docs.battlesnake.com/guides/getting-start
 ### Prerequisites
 
 * A free [Battlesnake Account](https://play.battlesnake.com/?utm_source=github&utm_medium=readme&utm_campaign=python_starter&utm_content=homepage)
+* An [Algolia account](https://www.algolia.com/users/sign_up?utm_source=github&utm_medium=readme&utm_campaign=algolia-battlesnake&utm_id=algolia-battlesnake) _(you can use the free account for 3x3 boards, but you'll need a paid account to index the 5x5 boards)_
+* An `.env` file (or equivalent) with the `ALGOLIA_APP_ID` and `ALGOLIA_API_KEY` for your Application from the Algolia Dashboard.
 
 ---
 
@@ -42,7 +56,7 @@ Whenever you update these values, go to the page for your Battlesnake and select
 
 On every turn of each game your Battlesnake receives information about the game board and must decide its next move.
 
-Locate the `handle_move` function inside [server.py](server.py#L48). Possible moves are "up", "down", "left", or "right". To start your Battlesnake will choose a move randomly. Your goal as a developer is to read information sent to you about the board (available in the `data` variable) and decide where your Battlesnake should move next. Your Battlesnakes move logic lives in [server_logic.py](server_logic.py#L37). This is the code you will want to edit.
+Locate the `handle_move` function inside [server.py](server.py#L48). Possible moves are "up", "down", "left", or "right". 
 
 See the [Battlesnake Game Rules](https://docs.battlesnake.com/references/rules) for more information on playing the game, moving around the board, and improving your algorithm.
 
@@ -74,24 +88,3 @@ If you're looking for the Single Player Mode of Battlesnake, or something to pra
 Once you've made your Battlesnake behave and survive on its own, you can enter it into the [Global Battlesnake Arena](https://play.battlesnake.com/arena/global) to see how it performs against other Battlesnakes worldwide.
 
 Arenas will regularly create new games and rank Battlesnakes based on their results. They're a good way to get regular feedback on how well your Battlesnake is performing, and a fun way to track your progress as you develop your algorithm.
-
-### Joining a Battlesnake League
-
-Want to get out there to compete and win prizes? Check out the [Quick Start League Guide](https://docs.battlesnake.com/guides/quick-start-league-guide) for information on the how and when of our competitive seasons.
-
----
-
-## Resources
-
-All documentation is available at [docs.battlesnake.com](https://docs.battlesnake.com), including detailed Guides, API References, and Tips.
-
-You can also join the Battlesnake Developer Community on [Discord](https://play.battlesnake.com/discord?utm_source=github&utm_medium=readme&utm_campaign=python_starter&utm_content=discord). We have a growing community of Battlesnake developers of all skill levels wanting to help everyone succeed and have fun with Battlesnake :)
-
-Check out live Battlesnake events on [Twitch](https://www.twitch.tv/battlesnakeofficial) and see what is happening when on the [Calendar.](https://play.battlesnake.com/calendar?utm_source=github&utm_medium=readme&utm_campaign=python_starter&utm_content=calendar)
-
-Want to contribute to Battlesnake? We have a number of open-source codebases and would love for you to get involved! Check out our page on [Contributing.](https://docs.battlesnake.com/guides/contributing)
-
-
-## Feedback
-
-**Do you have an issue or suggestions for this repository?** Head over to our [Feedback Repository](https://play.battlesnake.com/feedback?utm_source=github&utm_medium=readme&utm_campaign=python_starter&utm_content=feedback) today and let us know!
