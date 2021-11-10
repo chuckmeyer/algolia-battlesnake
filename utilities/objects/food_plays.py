@@ -2,6 +2,7 @@ from typing import List
 import json
 import os
 
+
 def find_best_moves(board_size: int, board: str) -> List[str]:
     head = board_size//2
     preferred = {
@@ -44,7 +45,7 @@ def find_best_moves(board_size: int, board: str) -> List[str]:
 def create_play(board_size: int, board: str) -> dict:
     best_moves = find_best_moves(board_size, board)
     if best_moves:
-        description = "food found {}".format(' '.join(best_moves)),
+        description = f"food found {' '.join(best_moves)}"
     else:
         description = "no food found"
     play = {

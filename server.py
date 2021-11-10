@@ -38,7 +38,8 @@ def handle_start():
     """
     data = request.get_json()
 
-    print(f"{data['game']['id']} START")
+    print(f"{data['game']['id']} of type {data['game']['ruleset']['name']} START")
+    print(f"{data['game']['id']} of type {data['game']['ruleset']['name']} START")
     return "ok"
 
 
@@ -64,7 +65,7 @@ def end():
     """
     data = request.get_json()
 
-    print(f"{data['game']['id']} END")
+    print(f"{data['game']['id']} of type {data['game']['ruleset']['name']} END")
     return "ok"
 
 

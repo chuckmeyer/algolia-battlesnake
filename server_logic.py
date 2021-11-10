@@ -204,7 +204,7 @@ def choose_move(data: dict) -> str:
 
     # TODO: Using information from 'data', make your Battlesnake move towards a piece of food on the board
     best_moves = find_board.find_food(5, my_apple_vision, possible_moves)
-    print("Best moves: {}".format(best_moves))
+    print(f"Best moves: {best_moves}")
 
     # Choose a random direction from the remaining possible_moves to move in, and then return that move
     move = ''
